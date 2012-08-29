@@ -380,11 +380,13 @@ class FrontEndUsers {
 		}
 		if (!$this->has_admin_access()) {
 			if (preg_match('/\/wp-admin\//', $url)) {
-				if ($this->is_logged_in()) {
-					return feu_get_url();
-				} else {
-					return site_url();
-				}
+                if(!preg_match('admin-ajax', $url)) {
+                    if ($this->is_logged_in()) {
+                        return feu_get_url();
+                    } else {
+                        return site_url();
+                    }
+                }
 			}
 		}
 		return $url;
